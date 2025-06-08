@@ -2,7 +2,7 @@ package insertion;
 
 public class Main {
     public static void main(String[] args) {
-        int[] vetor = {12, 11, 13, 5, 6};
+        int[] vetor = {5, 3, 4, 2, 8, 1, 6, 7};
 
         System.out.println("Vetor normal: ");
         for (int v : vetor){
@@ -17,7 +17,7 @@ public class Main {
             System.out.print(" " + v);
         }
 
-        int[] vetor2 = {19,20,1,23,29,10,14,123,12,2};
+        int[] vetor2 = {5, 3, 4, 2, 8, 1, 6, 7};
 
         System.out.println();
         System.out.println("Vetor Normal: ");
@@ -34,7 +34,7 @@ public class Main {
         }
         System.out.println();
 
-        int[] vetor3 = {19,20,1,23,29,10,14,123,12,2};
+        int[] vetor3 = {5, 3, 4, 2, 8, 1, 6, 7};
 
         System.out.println();
         System.out.println("Vetor Normal: ");
@@ -51,7 +51,7 @@ public class Main {
         }
         System.out.println();
 
-        int[] vetor4 = {19,20,1,23,29,10,14,123,12,2};
+        int[] vetor4 = {5, 3, 4, 2, 8, 1, 6, 7};
 
         System.out.println();
         System.out.println("Vetor Normal: ");
@@ -61,12 +61,18 @@ public class Main {
 
         System.out.println();
         System.out.println("Quick Sort V2: ");
-        particiona(vetor4, 0, vetor4.length - 1);
+        particionaV2(vetor4, 0, vetor4.length - 1);
 
         for (int i : vetor4){
             System.out.print(" " + i);
         }
         System.out.println();
+
+        System.out.println("Busca binária possui valor 5: ");
+        System.out.println(binarySearch(vetor4, 5));
+
+        System.out.println("Busca binária não possui valor: ");
+        System.out.println(binarySearch(vetor4, 10));
 
     }
 
@@ -152,21 +158,44 @@ public class Main {
 
     public static void particionaV2(int[] v, int indInicio, int indFim){
         int i = indFim;
-        int j;
         int pivo = v[indFim];
 
-        for (j = indFim - 1; j >= indInicio;) {
+        for (int j = indFim - 1; j >= indInicio; j--) {
             if(v[j] > pivo){
                 i--;
+                int temp = v[i];
                 v[i] = v[j];
+                v[j] = temp;
             }
         }
+        int temp = v[indFim];
         v[indFim] = v[i];
-        if(indInicio < i){
+        v[i] = temp;
+
+        if(indInicio < i - 1){
             particionaV2(v, indInicio, i - 1);
         }
-        if(i < indFim){
+        if(i + 1 < indFim){
             particionaV2(v, i + 1, indFim);
         }
+    }
+
+    public static int binarySearch(int[] vetor, int x){
+        int inicio = 0;
+        int fim = vetor.length - 1;
+        int meio;
+
+        while (inicio <= fim){
+            meio = (inicio + fim) / 2;
+
+            if (x == vetor[meio]){
+                return meio;
+            } else if (x > vetor[meio]){
+                inicio = meio + 1;
+            } else if(x < vetor[meio]){
+                fim = meio - 1;
+            }
+        }
+        return -1;
     }
 }
