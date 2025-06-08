@@ -34,6 +34,40 @@ public class Main {
         }
         System.out.println();
 
+        int[] vetor3 = {19,20,1,23,29,10,14,123,12,2};
+
+        System.out.println();
+        System.out.println("Vetor Normal: ");
+        for (int i : vetor3){
+            System.out.print(i + " ");
+        }
+
+        System.out.println();
+        System.out.println("Quick Sort: ");
+        particiona(vetor3, 0, vetor3.length - 1);
+
+        for (int i : vetor3){
+            System.out.print(" " + i);
+        }
+        System.out.println();
+
+        int[] vetor4 = {19,20,1,23,29,10,14,123,12,2};
+
+        System.out.println();
+        System.out.println("Vetor Normal: ");
+        for (int i : vetor4){
+            System.out.print(i + " ");
+        }
+
+        System.out.println();
+        System.out.println("Quick Sort V2: ");
+        particiona(vetor4, 0, vetor4.length - 1);
+
+        for (int i : vetor4){
+            System.out.print(" " + i);
+        }
+        System.out.println();
+
     }
 
     public static void insertionSort(int[] v){
@@ -87,5 +121,52 @@ public class Main {
         }
     }
 
-    public static void quickSort()
+    public static void particiona(int[] v, int indInicio, int indFim) {
+        int i = indInicio;
+        int j = indFim;
+        int pivo = v[(indInicio + indFim) / 2];
+
+        while (i <= j) {
+            while (v[i] < pivo) {
+                i++;
+            }
+            while (v[j] > pivo) {
+                j--;
+            }
+            if (i <= j) {
+                int temp = v[i];
+                v[i] = v[j];
+                v[j] = temp;
+                i++;
+                j--;
+            }
+        }
+
+        if (indInicio < j) {
+            particiona(v, indInicio, j);
+        }
+        if (i < indFim) {
+            particiona(v, i, indFim);
+        }
+    }
+
+    public static void particionaV2(int[] v, int indInicio, int indFim){
+        int i = indFim;
+        int j;
+        int pivo = v[indFim];
+
+        for (j = indFim - 1; j >= indInicio;) {
+            if(v[j] > pivo){
+                i--;
+                v[i] = v[j];
+            }
+        }
+        v[indFim] = v[i];
+        if(indInicio < i){
+            particionaV2(v, indInicio, i - 1);
+        }
+        if(i < indFim){
+            particionaV2(v, i + 1, indFim);
+        }
+    }
 }
